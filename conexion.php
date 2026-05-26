@@ -1,21 +1,21 @@
 <?php
 
-$host = getenv('PGHOST');
-$port = getenv('PGPORT');
-$dbname = getenv('PGDATABASE');
-$user = getenv('PGUSER');
-$password = getenv('PGPASSWORD');
+$host = getenv('MYSQLHOST');
+$user = getenv('MYSQLUSER');
+$password = getenv('MYSQLPASSWORD');
+$database = getenv('MYSQLDATABASE');
+$port = getenv('MYSQLPORT');
 
-$conexion = pg_connect("
-host=$host
-port=$port
-dbname=$dbname
-user=$user
-password=$password
-");
+$conexion = new mysqli(
+    $host,
+    $user,
+    $password,
+    $database,
+    $port
+);
 
-if(!$conexion){
-    die("Error de conexion con PostgreSQL");
+if($conexion->connect_error){
+    die("Error de conexion");
 }
 
 ?>

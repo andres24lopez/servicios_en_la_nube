@@ -9,7 +9,7 @@ $telefono = $_POST['telefono'];
 $sql = "INSERT INTO pacientes(nombre, edad, telefono)
 VALUES('$nombre','$edad','$telefono')";
 
-pg_query($conexion, $sql);
+$conexion->query($sql);
 
 header("Location:index.php");
 

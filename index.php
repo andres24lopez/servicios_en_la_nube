@@ -1,6 +1,6 @@
 <?php
 include("conexion.php");
-$resultado = pg_query($conexion, "SELECT * FROM pacientes ORDER BY id DESC");
+$resultado = $conexion->query("SELECT * FROM pacientes ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>
@@ -94,7 +94,7 @@ Guardar Paciente
 <th>Telefono</th>
 </tr>
 
-<?php while($fila = pg_fetch_assoc($resultado)){ ?>
+<?php while($fila = $resultado->fetch_assoc()){ ?>
 
 <tr>
 <td><?php echo $fila['id']; ?></td>
