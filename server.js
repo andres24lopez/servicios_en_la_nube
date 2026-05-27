@@ -10,12 +10,9 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Andres123.',
-    database: 'construccion_db'
-});
+const db = mysql.createConnection(
+    'mysql://root:bfncJUxcBoxjSHvBfAikApqJqWlWoTrg@kodama.proxy.rlwy.net:20071/railway'
+);
 
 db.connect((err) => {
     if (err) {
@@ -72,6 +69,8 @@ app.post('/calcular', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log('Servidor ejecutándose en http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor ejecutándose en puerto ${PORT}`);
 });
