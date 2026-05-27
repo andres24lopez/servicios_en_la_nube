@@ -2,36 +2,159 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Calculadora de Construcción</title>
+    <title>Sistema de Construcción</title>
+
     <link rel="stylesheet" href="/style.css">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Calculadora de Construcción</h1>
 
-        <form action="/calcular" method="POST">
-            <input type="number" step="0.01" name="largo" placeholder="Largo (m)" required>
-            <input type="number" step="0.01" name="ancho" placeholder="Ancho (m)" required>
-            <input type="number" step="0.01" name="alto" placeholder="Alto (m)" required>
+<div class="main-container">
 
-            <input type="number" step="0.01" name="costoCemento" placeholder="Costo Cemento" required>
-            <input type="number" step="0.01" name="costoArena" placeholder="Costo Arena" required>
-            <input type="number" step="0.01" name="costoBlock" placeholder="Costo Block" required>
+    <!-- MENU -->
+    <div class="sidebar">
+        <h2><i class="fa-solid fa-building"></i> Constructora</h2>
 
-            <button type="submit">Calcular</button>
-        </form>
-
-        <% if (resultado) { %>
-            <div class="resultado">
-                <h2>Resultados</h2>
-                <p><strong>Área:</strong> <%= resultado.area %> m²</p>
-                <p><strong>Volumen:</strong> <%= resultado.volumen %> m³</p>
-                <p><strong>Cemento:</strong> <%= resultado.cemento %> bolsas</p>
-                <p><strong>Arena:</strong> <%= resultado.arena %> m³</p>
-                <p><strong>Blocks:</strong> <%= resultado.block %> unidades</p>
-                <p><strong>Total:</strong> Q <%= resultado.total %></p>
-            </div>
-        <% } %>
+        <ul>
+            <li><i class="fa-solid fa-border-all"></i> Pared</li>
+            <li><i class="fa-solid fa-columns"></i> Columnas</li>
+            <li><i class="fa-solid fa-layer-group"></i> Losa</li>
+            <li><i class="fa-solid fa-house"></i> Techo</li>
+        </ul>
     </div>
+
+    <!-- FORMULARIO -->
+    <div class="content">
+
+        <div class="formulario">
+
+            <h1>Calculadora de Construcción</h1>
+
+            <form action="/calcular" method="POST">
+
+                <div class="grupo">
+                    <label>Largo</label>
+                    <input type="number" step="0.01" name="largo" required>
+                </div>
+
+                <div class="grupo">
+                    <label>Ancho</label>
+                    <input type="number" step="0.01" name="ancho" required>
+                </div>
+
+                <div class="grupo">
+                    <label>Alto</label>
+                    <input type="number" step="0.01" name="alto" required>
+                </div>
+
+                <div class="grupo">
+                    <label>Costo Cemento</label>
+                    <input type="number" step="0.01" name="costoCemento" required>
+                </div>
+
+                <div class="grupo">
+                    <label>Costo Arena</label>
+                    <input type="number" step="0.01" name="costoArena" required>
+                </div>
+
+                <div class="grupo">
+                    <label>Costo Block</label>
+                    <input type="number" step="0.01" name="costoBlock" required>
+                </div>
+
+                <div class="botones">
+
+     <button type="submit">
+        <i class="fa-solid fa-calculator"></i>
+        Calcular
+    </button>
+
+    <button type="button" class="limpiar" onclick="limpiarFormulario()">
+        <i class="fa-solid fa-broom"></i>
+        Limpiar
+    </button>
+
+</div>
+
+            </form>
+
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="resultado">
+
+            <h2>
+                <i class="fa-solid fa-chart-column"></i>
+                Resultados
+            </h2>
+
+            <% if (resultado) { %>
+
+                <div class="card">
+                    <h3>Área</h3>
+                    <p><%= resultado.area.toFixed(2) %> m²</p>
+                </div>
+
+                <div class="card">
+                    <h3>Volumen</h3>
+                    <p><%= resultado.volumen.toFixed(2) %> m³</p>
+                </div>
+
+                <div class="card">
+                    <h3>Cemento</h3>
+                    <p><%= resultado.cemento.toFixed(2) %> bolsas</p>
+                </div>
+
+                <div class="card">
+                    <h3>Arena</h3>
+                    <p><%= resultado.arena.toFixed(2) %> m³</p>
+                </div>
+
+                <div class="card">
+                    <h3>Blocks</h3>
+                    <p><%= resultado.block.toFixed(2) %></p>
+                </div>
+
+                <div class="card total">
+                    <h3>Total</h3>
+                    <p>Q <%= resultado.total.toFixed(2) %></p>
+                </div>
+
+            <% } else { %>
+
+                <div class="sin-datos">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <p>Realiza un cálculo para ver resultados</p>
+                </div>
+
+            <% } %>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+function limpiarFormulario(){
+
+    document.querySelector("form").reset();
+
+    document.querySelector(".resultado").innerHTML = `
+        <h2>
+            <i class="fa-solid fa-chart-column"></i>
+            Resultados
+        </h2>
+
+        <div class="sin-datos">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <p>Realiza un cálculo para ver resultados</p>
+        </div>
+    `;
+}
+
+</script>
 </body>
 </html>
